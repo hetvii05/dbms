@@ -1,0 +1,16 @@
+1. Create Tables: Student and Exam
+
+
+CREATE TABLE Student (
+    Roll_no INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(20),
+    branch VARCHAR(20)
+);
+
+CREATE TABLE Exam (
+    Roll_no INT,
+    s_code VARCHAR(20) PRIMARY KEY,
+    marks INT,
+    p_code VARCHAR(20),
+    FOREIGN KEY (Roll_no) REFERENCES Student(Roll_no)
+);

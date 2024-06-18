@@ -1,0 +1,76 @@
+11.Create table given below: Salesperson and Customer
+
+CREATE TABLE Salesperson (pksno int PRIMARY KEY AUTO_INCREMENT,
+                     sname varchar(20),
+                     city varchar(20),
+                     comm int
+);
+
+CREATE TABLE Customer (pkcnm int PRIMARY KEY AUTO_INCREMENT,
+                     cname varchar(20),
+                    city varchar(20),
+                    rating int,
+                    fksno int,
+FORGEN KEY (fksno) REFRENCE Salesperson(pksno)
+);
+
+12.Retrieve the below data from above table
+13.All orders for more than $1000.
+
+
+
+
+
+
+14.Names and cities of all salespeople in London with commission above 0.12
+
+SELECT sname,city FROM Salesperson WHERE city='london' AND comm>0.12;
+
+15.All salespeople either in Barcelona or in London
+
+SELECT*FROM Salesperson WHERE city='barcelona' OR city='london' ;
+
+16. All salespeople with commission between 0.10 and 0.12. (Boundary
+valuesshould be excluded).
+
+SELECT * FROM Salesperson WHERE comm>0.10 AND comm<0.12;
+
+17. All customers excluding those with rating <= 100 unless they are located
+inRome
+
+SELECT *FROM Customer
+WHERE rating>100 OR city ='Rome';
+
+18.Write a SQL statement that displays all the information about all
+salespeople
+SELECT * FROM salespeople;
+
+
+19.From the following table, write a SQL query to find orders that are
+delivered by a salesperson with ID. 5001. Return ord_no, ord_date,
+purch_amt
+
+
+
+SELECT ord_no, ord_date,purch_amt
+  FROM salespeople WHERE salesman_id=5001;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

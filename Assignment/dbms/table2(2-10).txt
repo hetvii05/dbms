@@ -1,0 +1,80 @@
+
+
+2. Create Tables: Employee and IncentiveTable
+
+CREATE TABLE Employee (
+    Employee_id INT PRIMARY KEY,
+    first_name VARCHAR(20),
+    marks INT,
+    last_name VARCHAR(20),
+    salary INT,
+    joining_date TIMESTAMP,
+    department VARCHAR(20)
+);
+
+CREATE TABLE IncentiveTable (
+    Employee_ref_date INT PRIMARY KEY AUTO_INCREMENT,
+    Incentive_date TIMESTAMP, 
+    Incentive_amount INT
+);
+
+3. Get First_Name from Employee table using "Tom" as the Employee Name
+
+SELECT first_name
+FROM Employee
+WHERE first_name = 'Tom';
+
+ 4. Get FIRST_NAME, Joining Date, and Salary from Employee table
+
+SELECT first_name, joining_date, salary
+FROM Employee;
+
+ 5. Get all employee details from the Employee table ordered by First_Name Ascending and Salary Descending
+
+SELECT *
+FROM Employee
+ORDER BY first_name ASC, salary DESC;
+
+ 6. Get employee details from the Employee table whose first name contains 'J'
+
+SELECT *
+FROM Employee
+WHERE first_name LIKE '%J%';
+
+7. Get department-wise maximum salary from Employee table ordered by department and salary ascending
+
+SELECT department, MAX(salary) AS max_salary
+FROM Employee
+GROUP BY department
+ORDER BY department ASC, max_salary ASC;
+
+ 9. Select first_name and incentive amount from Employee and IncentiveTable for those employees who have incentives and incentive amount greater than 3000
+
+SELECT E.first_name, I.Incentive_amount
+FROM Employee E
+INNER JOIN IncentiveTable I
+ON E.Employee_id = I.Employee_ref_date
+WHERE I.Incentive_amount > 3000;
+
+10. Create After Insert trigger on Employee table to insert records into viewtable
+
+CREATE TABLE viewtable (
+    Employee_id INT PRIMARY KEY,
+    first_name VARCHAR(20),
+    last_name VARCHAR(20),
+    salary INT,
+    joining_date TIMESTAMP,
+    department VARCHAR(20)
+);
+
+DELIMITER //
+
+CREATE TRIGGER after_employee_insert
+AFTER INSERT ON Employee
+FOR EACH ROW
+BEGIN
+    INSERT INTO viewtable (Employee_id, first_name, last_name, salary, joining_date, department)
+    VALUES (NEW.Employee_id, NEW.first_name, NEW.last_name, NEW.salary, NEW.joining_date, NEW.department);
+END//
+
+DELIMITER ;
